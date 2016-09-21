@@ -1,12 +1,10 @@
 <?php
 function renderTree($arr, $pid,$l=0){
-	//echo "<pre>";print_r($arr);echo "</pre>";die;
 	foreach($arr as $key => $val):
-          $val[4] = 1 ? $sts = "Enabled" : $sts = "Disabled";
-          $val[4] = 0 ? $sts1 = "Enabled" : $sts1 = "Disabled";
+          $val[4] = 1 ? $sts = "Active" : $sts = "In Active";
 		  if($val["parent"] == $pid){
             ?>
-                <tr  class='p<?= $val["parent"];?>' id="p<?= $val["id"];?>" style="display:none;">
+                <tr  class='p<?= $val["parent"];?>' style="display:none;">
 					<td><input type="checkbox" name="mark[]" /></td>
                     <td><input type="number" name="pos[]" value="<?= $val[5];?>" class="form-control"/></td>
                     <td onclick="toggle_visibility('<?= $val["id"]?>');" id="x">
@@ -29,7 +27,7 @@ function renderTree($arr, $pid,$l=0){
                     </td>
                     <td class="dropdown"><span dropdown-toggle" data-toggle="dropdown"><?= $sts;?><span class="caret"></span></button></span>
 						<ul class="dropdown-menu" style='margin-top:-20px;'>
-                             <li><a href="#"><?= $sts1;?></a></li>
+                             <li><a href="#">In Activee</a></li>
                         </ul>
 					</td>
                 </tr>
@@ -86,7 +84,8 @@ function renderTree($arr, $pid,$l=0){
                 </thead>
                 <tbody>
                     <?php
-                        $result = $dbs->queryAll($tbl="category",$off=0,$limit=1000,$order="ASC",$by="position") ;
+                        $result = $dbs->queryAll($tbl="category",$off=0,$limit=10000000,$order="ASC",$by="position") ;
+                      
                      
 					   echo renderTree($result,0);
 				
@@ -137,10 +136,10 @@ function renderTree($arr, $pid,$l=0){
               <div class="form-group">
                 <label for="stat" class="col-sm-2 control-label">Status</label>
                 <label class="radio-inline">
-					  <input type="radio" name="status" value="1" checked>Enabled
+					  <input type="radio" name="status" value="1" checked>Active
 					</label>
 					<label class="radio-inline">
-					  <input type="radio" name="status" value="0">Disabled
+					  <input type="radio" name="status" value="0">In Active
 					</label>
               </div>
             
@@ -176,67 +175,13 @@ for(i = 0; i < x.length; i++){
       // var e = document.getElementById(id);
        var e = document.getElementsByClassName("p"+id);
 	   for(i = 0; i < e.length; i++){
-		   if(e[i].style.display == ''){
-			  hide_visibility(e[i]);
-			 // e[i].style.display = 'none';
-		   }
-		   else{
-			   show_visibility(e[i]);
-		   }
-		}
-	} 
-	function hide_visibility(id) {//alert(id);
-		id.style.display = 'none';
-		var e = document.getElementsByClassName(id.getAttribute('id'));
-		if(e.lenght > 0){alert(e);
-			for(i = 0; i < e.length; i++){
-				  //e[i].style.display = 'none';
-				  hide_visibility(e[i]);
-			}
+		   if(e[i].style.display == '')
+			  e[i].style.display = 'none';
+		   else
+			  e[i].style.display = '';
 		}
 	}
-	function show_visibility(id) {
-		id.style.display = '';
-	}
 	
-	/*  function toggle_visibility(id) {alert(id);
-		var objid = "p"+id;
-		var objid1 = "#p"+id;
-		$('.table-condensed tbody tr').each(function (index, value) { 
-		  if($(this).hasClass(objid))
-		  {
-			if($(this).css('display') == 'none'){
-				 $(objid1).find("#x span").text("-");
-				 showChild(objid);
-			}
-
-			else
-				hideChild(objid);
-		  }
-		});
-	}
-	
-	function hideChild(objid)
-	{
-		$('.table-condensed tbody tr').each(function () { 
-		  if($(this).hasClass(objid))
-		  {
-			  var currentid = $(this).attr('id');
-			  $("#"+objid).find("#x span").text("+");
-			  $(this).hide();
-			  hideChild(currentid);
-		  }
-		});
-	}
-	function showChild(objid)
-	{
-		$('.table-condensed tbody tr').each(function () { 
-		  if($(this).hasClass(objid))
-		  {
-			  $(this).show();
-		  }
-		});
-	} */
 	extendCaret()
 	function extendCaret(){
 		
