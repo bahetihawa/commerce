@@ -1,0 +1,2 @@
+orderId,costumerID,orderNumber,orderDate,shippingDate,freight,shippingID,taxes,paymentId,status,timestamp
+22,22,22,10/08/2016,,0.00,0,,0,22,"2016-08-08 15:43:21"
