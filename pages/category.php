@@ -9,7 +9,7 @@ function renderTree($arr, $pid,$l=0){
                 <tr  class='p<?= $val["parent"];?>' id="p<?= $val["id"];?>" style="display:none;">
 					<td><input type="checkbox" name="mark[]" /></td>
                     <td><input type="number" name="pos[]" value="<?= $val[5];?>" class="form-control"/></td>
-                    <td onclick="toggle_visibility('<?= $val["id"]?>');" id="x">
+                    <td onclick="toggle_visibility('p<?= $val["id"]?>');" id="x">
 						<?php
 							for($i = 1; $i <= $l;$i++){
 								echo "&nbsp;&nbsp;&nbsp;";
@@ -172,7 +172,7 @@ for(i = 0; i < x.length; i++){
 </script>
 <script type="text/javascript">
 <!--
-    function toggle_visibility(id) {
+    /* function toggle_visibility(id) {
       // var e = document.getElementById(id);
        var e = document.getElementsByClassName("p"+id);
 	   for(i = 0; i < e.length; i++){
@@ -188,33 +188,44 @@ for(i = 0; i < x.length; i++){
 	function hide_visibility(id) {//alert(id);
 		id.style.display = 'none';
 		var e = document.getElementsByClassName(id.getAttribute('id'));
-		if(e.lenght > 0){alert(e);
-			for(i = 0; i < e.length; i++){
-				  //e[i].style.display = 'none';
+		if(e.lenght > 0){
+			for(i = 0; i < e.length; i++){alert(e[i]);
+				  e[i].style.display = 'none';
 				  hide_visibility(e[i]);
 			}
 		}
 	}
 	function show_visibility(id) {
 		id.style.display = '';
-	}
+	} */
 	
-	/*  function toggle_visibility(id) {alert(id);
-		var objid = "p"+id;
-		var objid1 = "#p"+id;
-		$('.table-condensed tbody tr').each(function (index, value) { 
-		  if($(this).hasClass(objid))
-		  {
-			if($(this).css('display') == 'none'){
-				 $(objid1).find("#x span").text("-");
-				 showChild(objid);
+	 function hideRow(id){
+		 $("table ."+id).each(function(){
+			 $(this).hide();
+			 var x = $("."+id).attr('id');
+			 if(x != null){
+				 alert(x);
+				  hideRow(x);
+			 }
+		 });
+	 }
+	 function toggle_visibility(id) {
+		
+		var objid = "."+id;
+		var objid2 = id;
+		var objid1 = "#"+id;
+		if($(objid).css('display') != 'none'){
+			
+					hideChild(objid2);
+			 
+		}
+		else
+			{
+				$(objid1).find("#x span").text("-");
+				 showChild(id);
 			}
-
-			else
-				hideChild(objid);
+				
 		  }
-		});
-	}
 	
 	function hideChild(objid)
 	{
@@ -236,7 +247,7 @@ for(i = 0; i < x.length; i++){
 			  $(this).show();
 		  }
 		});
-	} */
+	}
 	extendCaret()
 	function extendCaret(){
 		
