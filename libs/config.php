@@ -5,10 +5,10 @@
    
 class DB
 {
-	const DB_HOST = 'localhost';
-    const DB_NAME = 'ecommerce';
-    const DB_USER = 'root';
-    const DB_PASSWORD = '';
+	const DB_HOST = 'db4free.net';
+    const DB_NAME = 'perception';
+    const DB_USER = 'perception';
+    const DB_PASSWORD = 'perception@123';
 	
    private static $instance = null;
    public static function conn()

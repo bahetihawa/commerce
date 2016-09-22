@@ -16,7 +16,7 @@ function renderTree($arr, $pid,$l=0){
 								echo "&nbsp;&nbsp;&nbsp;";
 							}
 						?>
-						<!--span class="caret"></span-->  <h><?= $val[2];?></h>
+						<span class="caret"></span>  <?= $val[2];?>
 					</td>
                     <td><?= $val[3];?></td>
                     <td class="dropdown">
@@ -172,33 +172,7 @@ for(i = 0; i < x.length; i++){
 </script>
 <script type="text/javascript">
 <!--
-    /* function toggle_visibility(id) {
-      // var e = document.getElementById(id);
-       var e = document.getElementsByClassName("p"+id);
-	   for(i = 0; i < e.length; i++){
-		   if(e[i].style.display == ''){
-			  hide_visibility(e[i]);
-			 // e[i].style.display = 'none';
-		   }
-		   else{
-			   show_visibility(e[i]);
-		   }
-		}
-	} 
-	function hide_visibility(id) {//alert(id);
-		id.style.display = 'none';
-		var e = document.getElementsByClassName(id.getAttribute('id'));
-		if(e.lenght > 0){
-			for(i = 0; i < e.length; i++){alert(e[i]);
-				  e[i].style.display = 'none';
-				  hide_visibility(e[i]);
-			}
-		}
-	}
-	function show_visibility(id) {
-		id.style.display = '';
-	} */
-	
+    
 	 function hideRow(id){
 		 $("table ."+id).each(function(){
 			 $(this).hide();
@@ -221,7 +195,6 @@ for(i = 0; i < x.length; i++){
 		}
 		else
 			{
-				$(objid1).find("#x span").text("-");
 				 showChild(id);
 			}
 				
@@ -233,7 +206,6 @@ for(i = 0; i < x.length; i++){
 		  if($(this).hasClass(objid))
 		  {
 			  var currentid = $(this).attr('id');
-			  $("#"+objid).find("#x span").text("+");
 			  $(this).hide();
 			  hideChild(currentid);
 		  }
@@ -255,7 +227,9 @@ for(i = 0; i < x.length; i++){
 		  var x = $(this).attr("id");
 		  var e = document.getElementsByClassName(x);
 		  if(e.length > 0)
-			  $(this).find("#x h").prepend('<span>&plus;</span> ');
+			  $(this).find("#x span").css('color','black');
+		  else
+			   $(this).find("#x span").css('color','rgb(200, 200, 200)');
 		});
 	} 
 	
