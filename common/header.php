@@ -65,9 +65,9 @@
         <li class="dropdown costumer">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">Costumers <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Manage Costumers</a></li>
-            <li><a href="#">Recent Visitors</a></li>
-            <li><a href="#">Costumer's History</a></li>
+            <li><a href="managecostumers">Manage Costumers</a></li>
+            <li><a href="recentVisitors">Recent Visitors</a></li>
+            <li><a href="costumerHistory">Costumer's History</a></li>
           </ul>
         </li>
         <li class="dropdown marketing">

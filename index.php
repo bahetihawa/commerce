@@ -5,6 +5,9 @@
 	function prd($x){
 		echo "<pre>";print_r($x);echo "</pre>";die;
 	}
+	function pr($x){
+		echo "<pre>";print_r($x);echo "</pre>";
+	}
 	require "common/header.php";
 	file_exists($page) ? require $page : include "pages/404.php";
 	require "common/footer.php";

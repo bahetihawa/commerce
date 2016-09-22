@@ -61,17 +61,6 @@ function renderTree($arr, $pid,$l=0){
 	  </div>
     <div class="panel-body">
         <div class="col-sm-9">
-		<?php 
-			/*  $result = $dbs->queryAll($tbl="category",$off=0,$limit=10,$order="ASC",$by="position") ;
-			 foreach($result as $key => $val):
-				$array[$val["id"]] = $val;
-			 endforeach;
-		
-		dbs::createTreeView($array,0); */
-		
-		?>
-		
-		
 		
             <table class="table table-condensed">
                 <thead>

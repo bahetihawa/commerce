@@ -37,10 +37,11 @@ class dbs {
             $this->pdo->beginTransaction();
  
          
-            $sql = "SELECT * FROM {$tbl} ORDER BY $by $order LIMIT $off,$limit";
+            $sql = "SELECT * FROM {$tbl} ORDER BY $by $order " ;
+			if($limit > 0) $sql .= " LIMIT $off,$limit";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
             /* @var $stmt type */
             $stmt->closeCursor();
         } catch (PDOException $e) {
@@ -66,7 +67,7 @@ class dbs {
            $sql = "SELECT * FROM {$tbl}  WHERE {$str} ORDER BY $by $order LIMIT $off,$limit";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($col);
-            return $stmt->fetchAll();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
             /* @var $stmt type */
             $stmt->closeCursor();
         } catch (PDOException $e) {
@@ -76,11 +77,11 @@ class dbs {
 	/**
 	function for fetchin spevified single colomn
 	**/
-	public function fetchSngle($tbl,$flt="", $col,$cond="1"){
-		$col = implode(",",$col);
+	public function fetchSngle($tbl,$flt="",$cond="1"){
+		
 		try {
            
-		$sql = "SELECT {$flt} {$col} FROM {$tbl}  WHERE {$cond}";
+		$sql = "SELECT {$flt} FROM {$tbl}  WHERE {$cond}";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_OBJ);
