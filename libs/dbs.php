@@ -5,10 +5,15 @@
  */
 class dbs {
  
-    const DB_HOST = 'db4free.net';
-    const DB_NAME = 'perception';
-    const DB_USER = 'perception';
-    const DB_PASSWORD = 'perception@123';
+    //const DB_HOST = 'db4free.net';
+    //const DB_NAME = 'perception';
+    //const DB_USER = 'perception';
+    //const DB_PASSWORD = 'perception@123';
+	
+	const DB_HOST = 'localhost';
+    const DB_NAME = 'ecommerce';
+    const DB_USER = 'root';
+    const DB_PASSWORD = '';
     /**
      * Open the database connection
      */
@@ -31,7 +36,7 @@ class dbs {
     /**
      * database query
      */
-    public function queryAll($tbl,$off=0,$limit=1000000000,$order="ASC",$by=1) {
+    public function queryAll($tbl,$off=0,$limit=0,$order="ASC",$by=1) {
  
         try {
             $this->pdo->beginTransaction();
@@ -50,7 +55,7 @@ class dbs {
         }
     }
 	// query by id
-	public function queryCol($tbl,$col,$op="",$off=0,$limit=1000000000,$order="ASC",$by=1) {
+	public function queryCol($tbl,$col,$op="",$off=0,$limit=0,$order="ASC",$by=1) {
 		$str = implode(' '.$op.' ', array_map(
 			function ($v, $k) { return sprintf("%s = %s", $k, ":".$k); },
 			$col,
@@ -64,7 +69,8 @@ class dbs {
  
         try {
            
-           $sql = "SELECT * FROM {$tbl}  WHERE {$str} ORDER BY $by $order LIMIT $off,$limit";
+           $sql = "SELECT * FROM {$tbl}  WHERE {$str} ORDER BY $by $order "; 
+		   if($limit > 0) $sql .= " LIMIT $off,$limit";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($col);
             return $stmt->fetchAll(PDO::FETCH_OBJ);

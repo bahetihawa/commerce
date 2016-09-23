@@ -2,13 +2,14 @@
 function renderTree($arr, $pid,$l=0){
 	//echo "<pre>";print_r($arr);echo "</pre>";die;
 	foreach($arr as $key => $val):
-          $val[4] = 1 ? $sts = "Enabled" : $sts = "Disabled";
-          $val[4] = 0 ? $sts1 = "Enabled" : $sts1 = "Disabled";
+			$val = (array)$val;
+          $val["status"] = 1 ? $sts = "Enabled" : $sts = "Disabled";
+          $val["status"] = 0 ? $sts1 = "Enabled" : $sts1 = "Disabled";
 		  if($val["parent"] == $pid){
             ?>
                 <tr  class='p<?= $val["parent"];?>' id="p<?= $val["id"];?>" style="display:none;">
 					<td><input type="checkbox" name="mark[]" /></td>
-                    <td><input type="number" name="pos[]" value="<?= $val[5];?>" class="form-control"/></td>
+                    <td><input type="number" name="pos[]" value="<?= $val["position"];?>" class="form-control"/></td>
                     <td onclick="toggle_visibility('p<?= $val["id"]?>');" id="x">
 						<?php
 							for($i = 1; $i <= $l;$i++){
@@ -16,9 +17,9 @@ function renderTree($arr, $pid,$l=0){
 								echo "&nbsp;&nbsp;&nbsp;";
 							}
 						?>
-						<span class="caret"></span>  <?= $val[2];?>
+						<span class="caret"></span>  <?= $val["category"];?>
 					</td>
-                    <td><?= $val[3];?></td>
+                    <td><?= $val["description"];?></td>
                     <td class="dropdown">
 						<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i>
                          <span class="caret"></span></button>
@@ -27,7 +28,7 @@ function renderTree($arr, $pid,$l=0){
                                 <li><a href="#">Delete</a></li>
                             </ul>
                     </td>
-                    <td class="dropdown"><span dropdown-toggle" data-toggle="dropdown"><?= $sts;?><span class="caret"></span></button></span>
+                    <td class="dropdown"><span class="dropdown-toggle" data-toggle="dropdown"><?= $sts;?><span class="caret"></span></span>
 						<ul class="dropdown-menu" style='margin-top:-20px;'>
                              <li><a href="#"><?= $sts1;?></a></li>
                         </ul>
