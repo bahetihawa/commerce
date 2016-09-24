@@ -196,6 +196,33 @@ class dbs {
 				echo "</ul>";
 			endif;
 	}
+	
+	/* function to update data*/
+	public function update($tbl,$post,$cond) {
+			$validate = array_map( function (){ return "string";}, $post);
+			$x = self::sanitize($validate);		
+			 $str = implode(' , ', array_map(
+					function ($v, $k) { return sprintf("%s = %s", $k, ":".$k); },
+					$x,
+					array_keys($validate)
+				));
+			foreach($x as $k=>$v):
+					$nk = ":".$k;
+					$x[$nk] = $v;
+					unset($x[$k]);
+			endforeach;
+			 $place = $cond. "= :".$cond;
+			
+         try {
+          $sql = "UPDATE {$tbl} SET {$str} WHERE {$place}";
+            $stmt = $this->pdo->prepare($sql);
+           $stmt->execute($x);
+		 }catch (PDOException $e) {
+            $this->pdo->rollBack();
+            die($e->getMessage());
+		 } 
+    }
+	
     /**
      * close the database connection
      */

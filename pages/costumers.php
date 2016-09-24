@@ -6,16 +6,17 @@
 		$col = ["costumerId"=>$cid];
 		$result = $dbs->queryCol("costumers",$col,"AND") ;
 		$data = (array)$result[0] ;
-		extract($data);
+		$js = json_encode($data);
+		//extract($data);
 	endif;
 	
 ?>
 <div class="container-fluid">
   <div class="panel panel-info">
      <div class="panel-heading">
-          <span>Costumers</span>
-          <span class="pull-right">
-              <a href="#new_product" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-plus"></i> Add New</a>
+          <span onclick="window.location.href='managecostumers';" style="cursor:pointer;">&#9166; back</span>
+          <span id="notify">
+              
           </span>
 	  </div>
     <div class="panel-body">
@@ -29,7 +30,7 @@
 						<div class="input-group-addon">
 							<i>Name</i>
 						</div>
-						<input type="text" name="name" class="form-control col-md-6" Placeholder="Product Name...." value="<?= $name;?>" Required />
+						<input type="text" name="name" class="form-control col-md-6" Placeholder="Name...."   Required />
 					</div>
 				</div>
 				<div class="form-group">
@@ -100,8 +101,8 @@
 							<i>State</i>
 						</div>
 						<select name="state" class="form-control">
-							  
 								<option value="0">Choose State</option>
+								<option value="1">Uttar Pradesh</option>
 						</select>
 					</div>
 				</div>
@@ -187,7 +188,7 @@
 				</div>
 			  </fieldset>
 			  <fieldset class="col-md-6" id="addressPair1">
-				<h4><input type="checkbox" name="addressPair" id="addressPair">&nbsp;&nbsp;&nbsp; Shipping Address Same As Billing Address</h4>
+				<h4><label><input type="checkbox" name="addressPair" id="addressPair">&nbsp;&nbsp;&nbsp; Shipping Address Same As Billing Address</label></h4>
 				<div class="form-group">
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -273,15 +274,19 @@
 			$("#addressPair1 select").prop("disabled",false);
 		}
 	});
-	$('input:not[password]').each(function () {
-        var id = $(this).attr('name');
-		$(this).val(id);
+	var data = $.parseJSON('<?php if(isset($js)) echo $js;?>');
+	$('input,select').not(":password").each(function () {
+       var id1 = $(this).attr('name');
+	   if(data[id1] !== null){
+		   $(this).val(data[id1]);
+	   }
+		
     });
-	function getFormElelemets(formName){
-	  var elements = document.forms[formName].elements;
-	  for (i=0; i<elements.length; i++){
-		alert(elements[i])
-	  }
+	if(location.hash == "#err"){
+		document.getElementById("notify").innerHTML = "<i style='color:red;margin-left:35%'>Password confirmation Failed</i>";
+		$(":password").css("border-color","red");
+		$(":password").focus();
+		$("#notify").fadeOut(5000);
 	}
 </script>
    
